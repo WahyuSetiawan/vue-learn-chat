@@ -15,11 +15,6 @@ Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(VueChatScroll)
 
-// new Vue({
-//   render: h => h(App),
-// }).$mount('#app')
-
-
 new Vue({
   router, store, render: h => h(App),
-}).$mount('$app');
+}).$mount('#app');
