@@ -4,7 +4,8 @@
     <hr />
     <b-form @submit_prevent="onSubmit">
       <b-alert variant="danger" :show="hasError">{{error}}</b-alert>
-      <b-from-group id="userInputGroup" label="User Name" label-for="userInput">
+
+      <b-form-group id="userInputGroup" label="User Name" label-for="userInput">
         <b-form-input
           id="userInput"
           type="text"
@@ -14,7 +15,7 @@
           :disable="loading"
           required
         ></b-form-input>
-      </b-from-group>
+      </b-form-group>
 
       <b-button
         type="submit"

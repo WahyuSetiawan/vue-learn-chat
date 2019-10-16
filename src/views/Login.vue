@@ -7,7 +7,7 @@
       text-variant="white"
     >
       <p>for more information visit website</p>
-      <p-btn target="_blank" href="https://pusher.com/chatkit">More Info</p-btn>
+      <b-btn target="_blank" href="https://pusher.com/chatkit">More Info</b-btn>
     </b-jumbotron>
     <b-container>
       <b-row>
@@ -22,14 +22,12 @@
 </template>
 
 <script>
-import LoginForm from '@/components/LoginForm.vue'
+import LoginForm from "@/components/LoginForm.vue";
 
-export default({
-    name: 'login',
-    components: {
-        LoginForm
-    }
-})
-
-
+export default {
+  name: "login",
+  components: {
+    LoginForm
+  }
+};
 </script>

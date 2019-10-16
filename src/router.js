@@ -8,13 +8,16 @@ Vue.use(Router)
 export default new Router({
     mode: 'history',
     base: process.env.BASE_URL,
-    routers: [{
-        path: '/',
-        name: 'login',
-        component: Login,
-    }, {
-        path: '/chat',
-        name: 'chat',
-        component: ChatDashboard,
-    }]
+    routes: [
+        {
+            path: '/',
+            name: 'login',
+            component: Login
+        },
+        {
+            path: '/chat',
+            name: 'chat',
+            component: ChatDashboard
+        }
+    ]
 })
