@@ -7,7 +7,7 @@
     <b-list-group>
       <b-list-group-item v-for="user in users" :key="user.username">
         {{user.name}}
-        <b-badge v-if="user.presence" :variant="statusColor(user.presence)" pill></b-badge>
+        <b-badge v-if="user.presence" :variant="statusColor(user.presence)" pill>{{ user.presence }}</b-badge>
       </b-list-group-item>
     </b-list-group>
   </div>

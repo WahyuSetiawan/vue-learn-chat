@@ -3,6 +3,10 @@
 ## Prepare
 ```
 npm install -g @vue/cli @vue/cli-service @vue/cli-plugin-babel @vue/cli-plugin-eslint
+
+issue limit notify :
+
+https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers
 ```
 ## Project setup
 ```
