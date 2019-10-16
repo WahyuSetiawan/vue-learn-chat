@@ -17,7 +17,7 @@ export default new Vuex.Store({
     state: {
         loading: false,
         sending: false,
-        error: "Relax! Thisis just a drill error message",
+        error: "Relax! This is just a drill error message",
         user: {
             username: "Jack",
             name: "Jack Sparrow"
@@ -36,15 +36,18 @@ export default new Vuex.Store({
                 name: "Treasure"
             }
         ],
-        users: [{
-            username: "Jack",
-            name: "Jack Sparrow",
-            presence: "online"
-        }, {
-            username: "Barbossa",
-            name: "Hector Barbossa",
-            presence: "offline"
-        }],
+        users: [
+            {
+                username: "Jack",
+                name: "Jack Sparrow",
+                presence: "online"
+            },
+            {
+                username: "Barbossa",
+                name: "Hector Barbossa",
+                presence: "offline"
+            }
+        ],
         messages: [
             {
                 username: "Jack",
@@ -57,7 +60,7 @@ export default new Vuex.Store({
                 text: "If yout were waiting for the opportune moment, that was it"
             },
             {
-                username : "Hector",
+                username: "Hector",
                 date: "12/12/1644",
                 text: "Yout know Jack, I thought I had you figured out"
             }
