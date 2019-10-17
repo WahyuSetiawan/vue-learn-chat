@@ -13,11 +13,6 @@ export default {
             const currentUser = await chatkit.connectUser(userId);
 
             // eslint-disable-next-line
-            console.log({
-                username: currentUser.id,
-                name: currentUser.name
-            });
-
             commit('setUser', {
                 username: currentUser.id,
                 name: currentUser.name
@@ -25,7 +20,7 @@ export default {
             commit("setReconnect", false);
 
             // eslint-disable-next-line
-            console.log(state.user);
+            console.log(state.user.username);
         } catch (error) {
             handleError(commit, error);
         } finally {
