@@ -16,8 +16,9 @@ export default {
                 name: currentUser.name
             });
             commit("setReconnect", false);
-
-            console.log(state.user);
+            
+            // eslint-disable-next-line
+            console.log(state.userId);
         } catch (error) {
             handleError(commit, error);
         } finally {

@@ -2,7 +2,7 @@
   <div class="login-form">
     <h5 class="text-center">Chat Login</h5>
     <hr />
-    <b-form @submit_prevent="onSubmit">
+    <b-form @submit.prevent="onSubmit">
       <b-alert variant="danger" :show="hasError">{{error}}</b-alert>
 
       <b-form-group id="userInputGroup" label="User Name" label-for="userInput">
@@ -21,7 +21,7 @@
         type="submit"
         variant="primary"
         class="ld-ext-right"
-        v-bind:class="{running: loading}"
+        v-bind:class="{ running: loading}"
         :disabled="isValid"
       >
         Login
@@ -49,12 +49,14 @@ export default {
     ...mapState(["loading", "error"]),
     ...mapGetters(["hasError"])
   },
-  methods: {
-    ...mapActions(["login"]),
+   methods: {
+    ...mapActions([
+      'login'
+    ]),
     async onSubmit() {
       const result = await this.login(this.userId);
-      if (result) {
-        this.$router.push("chat");
+      if(result) {
+        this.$router.push('chat');
       }
     }
   }
