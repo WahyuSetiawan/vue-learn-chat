@@ -11,14 +11,21 @@ export default {
             commit("setError", "");
             commit("setLoading", true);
             const currentUser = await chatkit.connectUser(userId);
+
+            // eslint-disable-next-line
+            console.log({
+                username: currentUser.id,
+                name: currentUser.name
+            });
+
             commit('setUser', {
                 username: currentUser.id,
                 name: currentUser.name
             });
             commit("setReconnect", false);
-            
+
             // eslint-disable-next-line
-            console.log(state.userId);
+            console.log(state.user);
         } catch (error) {
             handleError(commit, error);
         } finally {

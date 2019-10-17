@@ -10,6 +10,9 @@ let currentUser = null;
 let activeRoom = null;
 
 async function connectUser(userId) {
+    // eslint-disable-next-line
+    // console.log(TOkEN_URL);
+
     const chatManager = new ChatManager({
         instanceLocator: INSTANCE_LOCATOR,
         tokenProvider: new TokenProvider({ url: TOKEN_URL }),
@@ -17,6 +20,10 @@ async function connectUser(userId) {
     });
 
     currentUser = await chatManager.connect();
+
+    // eslint-disable-next-line
+    console.log(currentUser);
+
     return currentUser;
 }
 

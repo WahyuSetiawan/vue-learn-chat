@@ -1,5 +1,3 @@
-import { stat } from "fs";
-
 export default {
     setError(state, error) {
         state.error = error;
