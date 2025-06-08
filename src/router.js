@@ -1,23 +1,24 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import { createRouter, createMemoryHistory } from 'vue-router'
 import Login from './views/Login.vue'
 import ChatDashboard from './views/ChatDashboard.vue'
 
-Vue.use(Router)
+const routes = [
+  {
+    path: '/',
+    name: 'login',
+    component: Login
+  },
+  {
+    path: '/chat',
+    name: 'chat',
+    component: ChatDashboard
+  }
+]
 
-export default new Router({
-    mode: 'history',
-    base: process.env.BASE_URL,
-    routes: [
-        {
-            path: '/',
-            name: 'login',
-            component: Login
-        },
-        {
-            path: '/chat',
-            name: 'chat',
-            component: ChatDashboard
-        }
-    ]
+const router = createRouter({
+  history: createMemoryHistory(),
+  routes,
 })
+
+export default router;
+

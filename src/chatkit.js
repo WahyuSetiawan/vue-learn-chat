@@ -1,9 +1,9 @@
 import { ChatManager, TokenProvider } from '@pusher/chatkit-client'
 
-const INSTANCE_LOCATOR = process.env.VUE_APP_INSTANCE_LOCATOR;
-const TOKEN_URL = process.env.VUE_APP_TOKEN_URL;
+const INSTANCE_LOCATOR = import.meta.env.VUE_APP_INSTANCE_LOCATOR;
+const TOKEN_URL = import.meta.env.VUE_APP_TOKEN_URL;
 // eslint-disable-next-line
-const MESSAGE_LIMIT = Number(process.env.VUE_APP_MESSAGE_LIMIT) || 10;
+const MESSAGE_LIMIT = Number(import.meta.env.VUE_APP_MESSAGE_LIMIT) || 10;
 
 let currentUser = null;
 // eslint-disable-next-line

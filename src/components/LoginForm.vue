@@ -2,11 +2,11 @@
   <div class="login-form">
     <h5 class="text-center">Chat Login</h5>
     <hr />
-    <b-form @submit.prevent="onSubmit">
-      <b-alert variant="danger" :show="hasError">{{error}}</b-alert>
+    <BForm @submit.prevent="onSubmit">
+      <BAlert variant="danger" :show="hasError">{{error}}</BAlert>
 
-      <b-form-group id="userInputGroup" label="User Name" label-for="userInput">
-        <b-form-input
+      <BFormGroup id="userInputGroup" label="User Name" label-for="userInput">
+        <BFormInput
           id="userInput"
           type="text"
           placeholder="Enter User Name"
@@ -14,10 +14,10 @@
           autocomplete="off"
           :disabled="loading"
           required
-        ></b-form-input>
-      </b-form-group>
+        ></BFormInput>
+      </BFormGroup>
 
-      <b-button
+      <BButton
         type="submit"
         variant="primary"
         class="ld-ext-right"
@@ -26,8 +26,8 @@
       >
         Login
         <div class="ld ld-ring ld-spin"></div>
-      </b-button>
-    </b-form>
+      </BButton>
+    </BForm>
   </div>
 </template>
 

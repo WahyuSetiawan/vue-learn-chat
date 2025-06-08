@@ -7,23 +7,22 @@
       text-variant="white"
     >
       <p>for more information visit website</p>
-      <b-btn target="_blank" href="https://pusher.com/chatkit">More Info</b-btn>
+      <BButton target="_blank" href="https://pusher.com/chatkit">More Info</BButton>
     </b-jumbotron>
-    <b-container>
-      <b-row>
-        <b-col lg="4" md="3"></b-col>
-        <b-col lg="4" md="6">
+    <BContainer>
+      <BRow>
+        <BCol lg="4" md="3"></BCol>
+        <BCol lg="4" md="6">
           <LoginForm />
-        </b-col>
-        <b-col lg="4" md="3"></b-col>
-      </b-row>
-    </b-container>
+        </BCol>
+        <BCol lg="4" md="3"></BCol>
+      </BRow>
+    </BContainer>
   </div>
 </template>
 
 <script>
 import LoginForm from "@/components/LoginForm.vue";
-import { mapActions } from "vuex";
 
 export default {
   name: "login",
