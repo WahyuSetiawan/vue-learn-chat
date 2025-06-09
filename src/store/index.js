@@ -3,7 +3,7 @@ import createPersistedState  from 'vuex-persistedstate' // Pengganti vuex-persis
 import mutations from './mutations'
 import actions from './actions'
 
-const debug = process.env.NODE_ENV !== 'production'
+const debug = import.meta.env.VITE_NODE_ENV !== 'production'
 
 export default createStore({
   state: () => ({
