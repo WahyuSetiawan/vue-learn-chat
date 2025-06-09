@@ -20,9 +20,3 @@ app.use(VueChatScroll)
 app.use(router)
 app.use(store)
 app.mount('#app')
-
-// new Vue({
-//   router,
-//   store,
-//   render: h => h(App)
-// }).$mount('#app')

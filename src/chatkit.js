@@ -1,32 +1,23 @@
-import { ChatManager, TokenProvider } from '@pusher/chatkit-client'
+import { StreamChat } from 'stream-chat';
 
-const INSTANCE_LOCATOR = import.meta.env.VUE_APP_INSTANCE_LOCATOR;
-const TOKEN_URL = import.meta.env.VUE_APP_TOKEN_URL;
-// eslint-disable-next-line
-const MESSAGE_LIMIT = Number(import.meta.env.VUE_APP_MESSAGE_LIMIT) || 10;
+const KEY_STREAM = import.meta.env.VITE_KEY_STREAM;
 
 let currentUser = null;
-// eslint-disable-next-line
-let activeRoom = null;
+let client = null;
 
 async function connectUser(userId) {
-    // eslint-disable-next-line
-    // console.log(TOkEN_URL);
+  client = StreamChat.getInstance(KEY_STREAM);
+  let userToken = client.devToken(userId);
 
-    const chatManager = new ChatManager({
-        instanceLocator: INSTANCE_LOCATOR,
-        tokenProvider: new TokenProvider({ url: TOKEN_URL }),
-        userId
-    });
+  await client.connectUser({
+    id: userId,
+    name: userId,
+  }, userToken);
 
-    currentUser = await chatManager.connect();
-
-    // eslint-disable-next-line
-    console.log(currentUser);
-
-    return currentUser;
+  currentUser = client.user;
+  return currentUser;
 }
 
 export default {
-    connectUser
+  connectUser
 }
