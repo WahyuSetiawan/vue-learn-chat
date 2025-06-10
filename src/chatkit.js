@@ -5,7 +5,6 @@ import store from './store';
 const KEY_STREAM = import.meta.env.VITE_KEY_STREAM;
 
 let currentUser = null;
-let activeRoom = null;
 let activeChannel = null;
 
 let client = StreamChat.getInstance(KEY_STREAM);
@@ -19,13 +18,13 @@ async function connectUser(userId) {
   }, userToken);
 
   currentUser = client.user;
-  await getAllChannels();
+  currentUser.rooms = await getAllChannels();
   return currentUser;
 }
 
 async function getAllChannels() {
   try {
-    const filter = {};
+    const filter = { members: [currentUser.id] };
     const sort = { craeted_at: -1 };
     const options = { limit: 20 };
 
@@ -37,21 +36,26 @@ async function getAllChannels() {
   }
 }
 
-function setMembers() {
-  const members = activeRoom.users.map(user => ({
-    username: user.id,
-    name: user.name,
-    presence: user.presence.state,
+async function setMembers() {
+  if (!activeChannel) return;
+
+  const response = await activeChannel.queryMembers({});
+  const members = response.members.map(user => ({
+    username: user.user?.id,
+    name: user.user?.name || user.user?.id,
+    online: user.user?.online || false
   }));
 
   store.commit("setUsers", members);
 }
 
-async function subscribeToRoom(roomId, userId = null) {
+async function subscribeToRoom(roomId, roomType, userId = null) {
   store.commit('clearChatRoom');
-  activeChannel = client.channel('messaging', roomId);
+  activeChannel = client.channel(roomType, roomId);
 
   await activeChannel.watch();
+
+  console.log(activeChannel.state.members);
 
   const state = await activeChannel.query({
     message: { limit: 20 }
@@ -69,8 +73,8 @@ async function subscribeToRoom(roomId, userId = null) {
     });
   }
 
-  setMembers();
-  return activeRoom;
+  await setMembers();
+  return activeChannel;
 }
 
 export default {

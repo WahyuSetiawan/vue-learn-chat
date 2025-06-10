@@ -12,18 +12,16 @@ export default {
       commit("setLoading", true);
       const currentUser = await chatkit.connectUser(userId);
 
-      console.log(currentUser);
-
       commit('setUser', {
         username: currentUser.id,
         name: currentUser.name
       });
       commit("setReconnect", false);
-      console.log(state.user.username);
 
       const rooms = currentUser.rooms.map(room => ({
         id: room.id,
-        name: room.name
+        name: room.id,
+        type: room.type
       }))
       commit('setRooms', rooms);
 
@@ -31,8 +29,9 @@ export default {
       commit('setActiveRoom', {
         id: activeRoom.id,
         name: activeRoom.name,
+        type: activeRoom.type ?? "messaging",
       });
-      await chatkit.subscribeToRoom(activeRoom.id)
+      await chatkit.subscribeToRoom(activeRoom.id, activeRoom.type)
 
       return true;
     } catch (error) {
