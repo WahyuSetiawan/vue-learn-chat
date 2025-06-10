@@ -15,7 +15,9 @@ async function connectUser(userId) {
   await client.connectUser({
     id: userId,
     name: userId,
-  }, userToken);
+  }, userToken, {
+    presence: true
+  });
 
   currentUser = client.user;
   currentUser.rooms = await getAllChannels();
@@ -31,8 +33,8 @@ async function getAllChannels() {
         ]
       }
     };
-    const sort = { craeted_at: -1 };
-    const options = { limit: 20 };
+    const sort = { created_at: -1 };
+    const options = { limit: 20, presence: true };
 
     const channels = await client.queryChannels(filter, sort, options);
     console.log("Semua Channel", channels);
@@ -46,7 +48,6 @@ async function setMembers() {
   if (!activeChannel) return;
 
   const response = await activeChannel.queryMembers({});
-  console.log(response);
   const members = response.members.map(user => ({
     username: user.user?.id,
     name: user.user?.name || user.user?.id,
@@ -60,7 +61,7 @@ async function subscribeToRoom(roomId, roomType, userId = null) {
   store.commit('clearChatRoom');
   activeChannel = client.channel(roomType, roomId);
 
-  await activeChannel.watch();
+  await activeChannel.watch({ presence: true });
 
   const state = await activeChannel.query({
     message: { limit: 20 }
@@ -68,7 +69,6 @@ async function subscribeToRoom(roomId, roomType, userId = null) {
 
   if (state.messages) {
     state.messages.forEach(message => {
-      console.log(message);
       store.commit('addMessage', {
         name: message.user?.name || message.user?.id || 'Unknown',
         username: message.user?.id || 'Unknown',
@@ -110,8 +110,7 @@ function setupChannelEventListeners() {
     setMembers();
   });
 
-  activeChannel.on("user.presence.changed", (event) => {
-    console.log(`User ${event.user.name || event.user.id} is now ${event.user.online ? 'online' : 'offline'}`);
+  client.on('user.presence.changed', (event) => {
     setMembers();
   });
 

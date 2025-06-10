@@ -6,8 +6,8 @@
 
     <BListGroup>
       <BListGroupItem v-for="user in users" :key="user.username">
-        {{ user.name }}
-        <BBadge v-if="user.online" :variant="statusColor(user.online)" pill>{{ user.online }}</BBadge>
+        {{ user.name }} <br>
+        <BBadge :variant="statusColor(user.online)" pill>{{ statusTitle(user.online) }}</BBadge>
       </BListGroupItem>
     </BListGroup>
   </div>
@@ -23,7 +23,10 @@ export default {
   },
   methods: {
     statusColor(status) {
-      return status === "online" ? "success" : "warning";
+      return status ? "success" : "warning";
+    },
+    statusTitle(status) {
+      return status ? "Online" : "Offline";
     }
   }
 };

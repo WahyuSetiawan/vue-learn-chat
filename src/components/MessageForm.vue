@@ -5,7 +5,7 @@
     <BForm @submit.prevent="onSubmit" class="ld-over" v-bind:class="{ running: sending }">
       <div class="ld ld-ring ld-spin"></div>
       <BAlert variant="danger" :show="hasError">{{ error }}</BAlert>
-      <BFormGroup>
+      <BFormGroup class="mb-2">
         <BFormInput id="message-input" type="text" v-model="message" @input="isTyping" placeholder="Enter Message"
           autocomplete="off" required />
       </BFormGroup>

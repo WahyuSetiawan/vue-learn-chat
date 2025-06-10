@@ -5,7 +5,7 @@
     <BForm @submit.prevent="onSubmit">
       <BAlert variant="danger" :show="hasError">{{ error }}</BAlert>
 
-      <BFormGroup id="userInputGroup" label="User Name" label-for="userInput">
+      <BFormGroup class="mb-2" id="userInputGroup" label="User Name" label-for="userInput">
         <BFormInput id="userInput" type="text" placeholder="Enter User Name" v-model="userId" autocomplete="off"
           :disabled="loading" required></BFormInput>
       </BFormGroup>
