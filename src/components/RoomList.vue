@@ -3,15 +3,15 @@
     <h4>Channels</h4>
     <hr />
 
-    <b-list-group v-if="activeRoom">
-      <b-list-group-item
+    <BListGroup v-if="activeRoom">
+      <BListGroupItem
         v-for="room in rooms"
         :key="room.name"
         :active="activeRoom.id === room.id"
         href="#"
         @click="onChange(room)"
-      ># {{room.name}}</b-list-group-item>
-    </b-list-group>
+      ># {{room.name}}</BListGroupItem>
+    </BListGroup>
   </div>
 </template>
 

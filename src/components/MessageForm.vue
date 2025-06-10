@@ -2,11 +2,11 @@
   <div class="message-form ld-over">
     <small class="text-muted">@{{ user.username }}</small>
 
-    <b-form @submit.prevent="onSubmit" class="ld-over" v-bind:class="{ running: sending}">
+    <BForm @submit.prevent="onSubmit" class="ld-over" v-bind:class="{ running: sending}">
       <div class="ld ld-ring ld-spin"></div>
-      <b-alert variant="danger" :show="hasError">{{ error }}</b-alert>
-      <b-form-group>
-        <b-form-input
+      <BAlert variant="danger" :show="hasError">{{ error }}</BAlert>
+      <BFormGroup>
+        <BFormInput
           id="message-input"
           type="text"
           v-model="message"
@@ -14,12 +14,12 @@
           autocomplete="off"
           required
         />
-      </b-form-group>
+      </BFormGroup>
 
       <div class="clearfix">
         <b-button type="submit" variant="primary" class="float-right">Send</b-button>
       </div>
-    </b-form>
+    </BForm>
   </div>
 </template>
 
@@ -36,6 +36,11 @@ export default {
   computed: {
     ...mapState(["user", "sending", "error", "activeRoom"]),
     ...mapGetters(["hasError"])
-  }
+  },
+  methods: {
+    async onSubmit(){
+
+    } 
+  },
 };
 </script>

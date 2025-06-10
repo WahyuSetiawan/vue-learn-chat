@@ -1,33 +1,33 @@
 <template>
   <div class="chat-dashboard">
     <ChatNavBar />
-    <b-container fluid class="ld-over" v-bind:class="{class: loading}">
+    <BContainer fluid class="ld-over" v-bind:class="{class: loading}">
       <div class="ld ld-ring ld-spin"></div>
 
-      <b-row>
-        <b-col cols="2">
+      <BRow>
+        <BCol cols="2">
           <RoomList />
-        </b-col>
+        </BCol>
 
-        <b-col cols="8">
-          <b-row>
-            <b-col id="chat-content">
+        <BCol cols="8">
+          <BRow>
+            <BCol id="chat-content">
               <MessageList />
-            </b-col>
-          </b-row>
+            </BCol>
+          </BRow>
 
-          <b-row>
-            <b-col>
+          <BRow>
+            <BCol>
               <MessageForm />
-            </b-col>
-          </b-row>
-        </b-col>
+            </BCol>
+          </BRow>
+        </BCol>
 
-        <b-col cols="2">
+        <BCol cols="2">
           <UserList />
-        </b-col>
-      </b-row>
-    </b-container>
+        </BCol>
+      </BRow>
+    </BContainer>
   </div>
 </template>
 
