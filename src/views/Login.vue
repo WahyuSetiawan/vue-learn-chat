@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <div class="bg-light p-5 rounded-lg m-3 bg-success text-white" header="Vue.js Chat"
+    <div class="p-5 rounded-lg m-3 bg-success text-white" header="Vue.js Chat"
       lead="Powereed by Chatkit SDK and Bootstrap-View">
       <p class="lead">for more information visit website</p>
       <BButton target="_blank" href="https://pusher.com/chatkit">More Info</BButton>
