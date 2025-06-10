@@ -13,7 +13,7 @@
         <p class="message-text">{{ message.text }}</p>
 
         <div class="clearfix">
-          <small class="text-muted float-right">{{ message - date }}</small>
+          <small class="text-muted float-right">{{ message.date }}</small>
         </div>
       </div>
     </div>
