@@ -30,6 +30,8 @@ declare module 'vue' {
     IBi0Circle: typeof import('~icons/bi/0-circle')['default']
     IBiActivity: typeof import('~icons/bi/activity')['default']
     ILucideLogOut: typeof import('~icons/lucide/log-out')['default']
+    ILucidePlus: typeof import('~icons/lucide/plus')['default']
+    ILucideTrash: typeof import('~icons/lucide/trash')['default']
     LoginForm: typeof import('./src/components/LoginForm.vue')['default']
     MessageForm: typeof import('./src/components/MessageForm.vue')['default']
     MessageList: typeof import('./src/components/MessageList.vue')['default']

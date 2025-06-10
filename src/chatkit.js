@@ -1,6 +1,7 @@
 import { StreamChat } from 'stream-chat';
 import moment from 'moment';
 import store from './store';
+import { watch } from 'vue';
 
 const KEY_STREAM = import.meta.env.VITE_KEY_STREAM;
 
@@ -21,6 +22,7 @@ async function connectUser(userId) {
 
   currentUser = client.user;
   currentUser.rooms = await getAllChannels();
+
   return currentUser;
 }
 
@@ -158,9 +160,24 @@ async function disconnectUser() {
   await client.disconnectUser();
 }
 
+function isUserAdmin() {
+  return this.currentUser.role == "admin";
+}
+
 async function addMemberIntoChannel(memberId) {
+  if (!activeChannel || !isUserAdmin()) return;
+
   await activeChannel.addMembers([memberId]);
+
   setMembers()
+}
+async function removeMemberFromChannel(memberId) {
+  if (!activeChannel && !isUserAdmin()) return;
+
+  console.log(memberId);
+  await activeChannel.removeMembers([memberId])
+
+  setMembers();
 }
 
 export default {
@@ -172,4 +189,5 @@ export default {
   leaveRoom,
   disconnectUser,
   addMemberIntoChannel,
+  removeMemberFromChannel,
 }

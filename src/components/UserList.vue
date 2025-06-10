@@ -2,10 +2,13 @@
   <div class="user-list">
     <h4>Members</h4>
 
-    <BButton @click="nestedModal1 = !nestedModal1">Tambah Member</BButton>
+    <BButton @click="nestedModal1 = !nestedModal1" variant="success" v-if="isAdmin()">
+      <ILucidePlus /> Member
+    </BButton>
     <hr />
 
-    <BModal v-model="nestedModal1" size="md" title="Tambahkan Member Baru" ok-only centered @ok="onAddMember">
+    <BModal v-model="nestedModal1" size="md" title="Tambahkan Member Baru" v-if="isAdmin()" ok-only centered
+      @ok="onAddMember">
       <BFormGroup class="mb-2" id="userInputGroup" label="User Name" label-for="userInput">
         <BFormInput id="userInput" type="text" placeholder="Enter User Name" v-model="newUserId" autocomplete="off"
           :disabled="isLoadingAddMember" required></BFormInput>
@@ -14,8 +17,13 @@
 
     <BListGroup>
       <BListGroupItem v-for="user in users" :key="user.username">
-        {{ user.name }} <br>
-        <BBadge :variant="statusColor(user.online)" pill>{{ statusTitle(user.online) }}</BBadge>
+        <div class="d-flex justify-content-between align-items-center">
+          {{ user.name }}
+          <ILucideTrash v-if="isAdmin()" @click="removeMember(user.username)" />
+        </div>
+        <div class="mt-1">
+          <BBadge :variant="statusColor(user.online)" pill>{{ statusTitle(user.online) }}</BBadge>
+        </div>
       </BListGroupItem>
     </BListGroup>
   </div>
@@ -24,6 +32,9 @@
 <script>
 import { ref } from 'vue';
 import { mapState, mapActions } from "vuex";
+
+import ILucidePlus from '~icons/lucide/plus';
+import ILucideTrash from '~icons/lucide/trash';
 
 export default {
   name: "user-list",
@@ -40,10 +51,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(["loading", "users", "isLoadingAddMember"]),
+    ...mapState(["loading", "users", "isLoadingAddMember", "user"]),
   },
   methods: {
-    ...mapActions(["addMember"]),
+    ...mapActions(["addMember", "removeMember"]),
     statusColor(status) {
       return status ? "success" : "warning";
     },
@@ -53,6 +64,12 @@ export default {
     onAddMember() {
       alert("tambahkan user dengan " + this.newUserId);
       this.addMember(this.newUserId);
+    },
+    isAdmin() {
+      return this.user.isAdmin || false;
+    },
+    onRemoveMember(userId) {
+      this.removeMember(userId);
     }
   }
 };

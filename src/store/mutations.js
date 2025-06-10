@@ -39,6 +39,10 @@ export default {
   setUserTyping(state, userId) {
     state.userTyping = userId;
   },
+  resetStatus(state) {
+    state.loading = false;
+    state.isLoadingAddMember = false;
+  },
   reset(state) {
     state.error = null;
     state.users = [];

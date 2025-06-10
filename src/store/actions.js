@@ -14,7 +14,8 @@ export default {
 
       commit('setUser', {
         username: currentUser.id,
-        name: currentUser.name
+        name: currentUser.name,
+        isAdmin: currentUser.role == "admin",
       });
       commit("setReconnect", false);
 
@@ -35,7 +36,7 @@ export default {
         await chatkit.subscribeToRoom(activeRoom.id, activeRoom.type)
       }
 
-      commit("setSending", false);
+      commit("resetStatus");
       return true;
     } catch (error) {
       handleError(commit, error);
@@ -75,5 +76,9 @@ export default {
     commit("setLoadingAddMember", true);
     await chatkit.addMemberIntoChannel(userId);
     commit("setLoadingAddMember", false);
+  },
+
+  async removeMember({ commit }, userId) {
+    await chatkit.removeMemberFromChannel(userId);
   }
 }
