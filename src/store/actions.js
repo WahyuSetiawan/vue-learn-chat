@@ -25,16 +25,17 @@ export default {
       }))
       commit('setRooms', rooms);
 
-      const activeRoom = state.activeRoom || rooms[0];
-      commit('setActiveRoom', {
-        id: activeRoom.id,
-        name: activeRoom.name,
-        type: activeRoom.type ?? "messaging",
-      });
-      await chatkit.subscribeToRoom(activeRoom.id, activeRoom.type)
+      if (rooms.length > 0) {
+        const activeRoom = state.activeRoom || rooms[0];
+        commit('setActiveRoom', {
+          id: activeRoom.id,
+          name: activeRoom.name,
+          type: activeRoom.type ?? "messaging",
+        });
+        await chatkit.subscribeToRoom(activeRoom.id, activeRoom.type)
+      }
 
       commit("setSending", false);
-
       return true;
     } catch (error) {
       handleError(commit, error);
@@ -68,5 +69,11 @@ export default {
     commit('reset');
     chatkit.disconnectUser();
     window.localStorage.clear();
+  },
+
+  async addMember({ commit }, userId) {
+    commit("setLoadingAddMember", true);
+    await chatkit.addMemberIntoChannel(userId);
+    commit("setLoadingAddMember", false);
   }
 }

@@ -37,7 +37,6 @@ async function getAllChannels() {
     const options = { limit: 20, presence: true };
 
     const channels = await client.queryChannels(filter, sort, options);
-    console.log("Semua Channel", channels);
     return channels;
   } catch (error) {
     console.log("Error : ", error);
@@ -91,7 +90,6 @@ function setupChannelEventListeners() {
   activeChannel.on("message.new", (event) => {
     const message = event.message;
 
-    // if (message.user?.id != client.userID) {
     store.commit('addMessage', {
       name: message.user?.name || message.user?.id || 'Unknown',
       username: message.user?.id || 'Unknown',
@@ -99,7 +97,6 @@ function setupChannelEventListeners() {
       date: moment(message.created_at).format("h:mm:ss"),
       messageId: message.id,
     });
-    // }
   });
 
   activeChannel.on("member.added", () => {
@@ -161,6 +158,11 @@ async function disconnectUser() {
   await client.disconnectUser();
 }
 
+async function addMemberIntoChannel(memberId) {
+  await activeChannel.addMembers([memberId]);
+  setMembers()
+}
+
 export default {
   connectUser,
   subscribeToRoom,
@@ -169,4 +171,5 @@ export default {
   stopTyping,
   leaveRoom,
   disconnectUser,
+  addMemberIntoChannel,
 }

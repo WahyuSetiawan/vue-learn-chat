@@ -1,4 +1,7 @@
 export default {
+  setLoadingAddMember(state, loading) {
+    state.isLoadingAddMember = loading;
+  },
   setError(state, error) {
     state.error = error;
   },

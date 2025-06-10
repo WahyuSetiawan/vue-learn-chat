@@ -18,6 +18,7 @@ declare module 'vue' {
     BFormInput: typeof import('bootstrap-vue-next/components/BFormInput')['BFormInput']
     BListGroup: typeof import('bootstrap-vue-next/components/BListGroup')['BListGroup']
     BListGroupItem: typeof import('bootstrap-vue-next/components/BListGroup')['BListGroupItem']
+    BModal: typeof import('bootstrap-vue-next/components/BModal')['BModal']
     BNavbar: typeof import('bootstrap-vue-next/components/BNavbar')['BNavbar']
     BNavbarBrand: typeof import('bootstrap-vue-next/components/BNavbar')['BNavbarBrand']
     BNavbarNav: typeof import('bootstrap-vue-next/components/BNavbar')['BNavbarNav']
