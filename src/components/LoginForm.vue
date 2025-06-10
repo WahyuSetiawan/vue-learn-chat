@@ -43,7 +43,6 @@ export default {
     ]),
     async onSubmit() {
       const result = await this.login(this.userId);
-      console.log(result);
       if (result) {
         this.$router.push('chat');
       }
