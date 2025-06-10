@@ -24,7 +24,13 @@ async function connectUser(userId) {
 
 async function getAllChannels() {
   try {
-    const filter = { members: [currentUser.id] };
+    const filter = {
+      members: {
+        $in: [
+          currentUser.id
+        ]
+      }
+    };
     const sort = { craeted_at: -1 };
     const options = { limit: 20 };
 
@@ -40,6 +46,7 @@ async function setMembers() {
   if (!activeChannel) return;
 
   const response = await activeChannel.queryMembers({});
+  console.log(response);
   const members = response.members.map(user => ({
     username: user.user?.id,
     name: user.user?.name || user.user?.id,

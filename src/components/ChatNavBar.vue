@@ -1,8 +1,8 @@
 <template>
   <BNavbar id="chat-navbar" toggleable="md" type="dark" variant="info">
-    <BNarbarBrand href="#">Vue Chat</BNarbarBrand>
+    <BNavbarBrand href="#">Vue Chat</BNavbarBrand>
 
-    <BNarbarBrand></BNarbarBrand>
+    <BNavbarBrand></BNavbarBrand>
 
     <BNavbarNav class="ml-auto">
       <BNavText>{{user.name}}</BNavText>

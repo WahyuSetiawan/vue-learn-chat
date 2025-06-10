@@ -25,6 +25,8 @@ export default {
       }))
       commit('setRooms', rooms);
 
+      console.log(rooms);
+
       const activeRoom = state.activeRoom || rooms[0];
       commit('setActiveRoom', {
         id: activeRoom.id,
@@ -38,6 +40,15 @@ export default {
       handleError(commit, error);
     } finally {
       commit('setLoading', false);
+    }
+  },
+
+  async changeRoom({ commit }, room) {
+    try {
+      const { id, name, type } = await chatkit.subscribeToRoom(room.id, room.type);
+      commit("setActiveRoom", { id, name, type });
+    } catch (error) {
+      handleError(commit, error);
     }
   }
 }
