@@ -32,13 +32,23 @@
 </template>
 
 <script>
-import ChatNavBar from "@/components/ChatNavBar.vue";
-import RoomList from "@/components/RoomList.vue";
-import MessageList from "@/components/MessageList.vue";
-import MessageForm from "@/components/MessageForm.vue";
-import UserList from "@/components/UserList.vue";
+import { defineAsyncComponent } from "vue";
+
+const ChatNavBar = defineAsyncComponent(() =>
+  import("@/components/ChatNavBar.vue"),
+);
+const RoomList = defineAsyncComponent(() =>
+  import("@/components/RoomList.vue")
+);
+const MessageList = defineAsyncComponent(() =>
+  import("@/components/MessageList.vue"));
+const MessageForm = defineAsyncComponent(() =>
+  import("@/components/MessageForm.vue"));
+const UserList = defineAsyncComponent(() =>
+  import("@/components/UserList.vue"));
+
 import { mapState } from "vuex";
-import chatkit from "../chatkit.js";
+import useStreamChat from "@/composables/useStreamChat.js";
 
 export default {
   name: "Chat",
@@ -53,7 +63,7 @@ export default {
     ...mapState(["loading"])
   },
   beforeDestroy() {
-    chatkit.leaveRoom();
+    useStreamChat().leaveRoom();
   },
 };
 </script>

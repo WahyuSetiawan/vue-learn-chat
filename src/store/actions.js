@@ -1,4 +1,4 @@
-import chatkit from '../chatkit';
+import useStreamChat from '../composables/useStreamChat.js';
 
 function handleError(commit, error) {
   const message = error.message || error.info.error_description;
@@ -10,7 +10,7 @@ export default {
     try {
       commit("setError", "");
       commit("setLoading", true);
-      const currentUser = await chatkit.connectUser(userId);
+      const currentUser = await useStreamChat().connectUser(userId);
 
       commit('setUser', {
         username: currentUser.id,
@@ -33,7 +33,7 @@ export default {
           name: activeRoom.name,
           type: activeRoom.type ?? "messaging",
         });
-        await chatkit.subscribeToRoom(activeRoom.id, activeRoom.type)
+        await useStreamChat().subscribeToRoom(activeRoom.id, activeRoom.type)
       }
 
       commit("resetStatus");
@@ -47,7 +47,7 @@ export default {
 
   async changeRoom({ commit }, room) {
     try {
-      const { id, name, type } = await chatkit.subscribeToRoom(room.id, room.type);
+      const { id, name, type } = await useStreamChat().subscribeToRoom(room.id, room.type);
       commit("setActiveRoom", { id, name, type });
     } catch (error) {
       handleError(commit, error);
@@ -58,7 +58,7 @@ export default {
     try {
       commit("setError", '');
       commit("setSending", true);
-      const messageId = await chatkit.sendMessage(message);
+      const messageId = await useStreamChat().sendMessage(message);
       commit("setSending", false);
       return messageId;
     } catch (error) {
@@ -68,17 +68,17 @@ export default {
 
   async logout({ commit }) {
     commit('reset');
-    chatkit.disconnectUser();
+    useStreamChat().disconnectUser();
     window.localStorage.clear();
   },
 
   async addMember({ commit }, userId) {
     commit("setLoadingAddMember", true);
-    await chatkit.addMemberIntoChannel(userId);
+    await useStreamChat().addMemberIntoChannel(userId);
     commit("setLoadingAddMember", false);
   },
 
   async removeMember({ commit }, userId) {
-    await chatkit.removeMemberFromChannel(userId);
+    await useStreamChat().removeMemberFromChannel(userId);
   }
 }

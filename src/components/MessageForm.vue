@@ -19,7 +19,7 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from "vuex";
-import chatkit from '../chatkit.js';
+import useStreamChat from '../composables/useStreamChat.js';
 
 export default {
   name: "message-form",
@@ -44,14 +44,14 @@ export default {
       }
     },
     async isTyping() {
-      await chatkit.startTyping();
+      await useStreamChat().startTyping();
 
       if (this.typingTimeout) {
         clearTimeout(this.typingTimeout);
       }
 
       this.typingTimeout = setTimeout(async () => {
-        await chatkit.stopTyping();
+        await useStreamChat().stopTyping();
       }, 2000);
     }
   },

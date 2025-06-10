@@ -1,17 +1,15 @@
 import { createRouter, createMemoryHistory } from 'vue-router'
-import Login from './views/Login.vue'
-import ChatDashboard from './views/ChatDashboard.vue'
 
 const routes = [
   {
     path: '/',
     name: 'login',
-    component: Login
+    component: () => import('./views/Login.vue')
   },
   {
     path: '/chat',
     name: 'chat',
-    component: ChatDashboard
+    component: () => import('./views/ChatDashboard.vue')
   }
 ]
 

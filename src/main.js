@@ -8,6 +8,7 @@ import store from './store/index'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-next/dist/bootstrap-vue-next.css'
+
 import './assets/css/loading.css'
 import './assets/css/loading-btn.css'
 
