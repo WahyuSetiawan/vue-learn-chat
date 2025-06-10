@@ -6,19 +6,25 @@
 
     <BNavbarNav class="ml-auto">
       <BNavText>{{user.name}}</BNavText>
-      <BNavItem href="#" active>Logout</BNavItem>
+      <BNavItem href="#" @click="onLogout" active>Logout</BNavItem>
     </BNavbarNav>
   </BNavbar>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "ChatNavBar",
   computed: {
     ...mapState(["user"])
-  }
+  }, 
+  methods: {
+    ...mapActions(['logout']),
+    async onLogout(){
+      this.logout();
+    },
+  },  
 };
 </script>
 

@@ -10,6 +10,7 @@
           id="message-input"
           type="text"
           v-model="message"
+          @input="isTyping"
           placeholder="Enter Message"
           autocomplete="off"
           required
@@ -17,20 +18,22 @@
       </BFormGroup>
 
       <div class="clearfix">
-        <b-button type="submit" variant="primary" class="float-right">Send</b-button>
+        <BButton type="submit" variant="primary" class="float-right">Send</BButton>
       </div>
     </BForm>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapActions } from "vuex";
+import chatkit from '../chatkit.js';
 
 export default {
   name: "message-form",
   data() {
     return {
-      message: ""
+      message: "", 
+      typingTimeout: null,
     };
   },
   computed: {
@@ -38,8 +41,26 @@ export default {
     ...mapGetters(["hasError"])
   },
   methods: {
+    ...mapActions([
+    'sendMessage', 
+    ]),
     async onSubmit(){
-    } 
+      const result = await this.sendMessage(this.message);
+      if(result){
+        this.messagee = '';
+      }
+    },
+    async isTyping(){
+      await chatkit.startTyping();
+
+      if(this.typingTimeout){
+        clearTimeout(this.typingTimeout);
+      }
+
+      this.typingTimeout = setTimeout(async () => {
+       await chatkit.stopTyping();
+      }, 2000);
+    }
   },
 };
 </script>

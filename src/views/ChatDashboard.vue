@@ -38,6 +38,7 @@ import MessageList from "@/components/MessageList.vue";
 import MessageForm from "@/components/MessageForm.vue";
 import UserList from "@/components/UserList.vue";
 import { mapState } from "vuex";
+import chatkit from "../chatkit.js";
 
 export default {
   name: "Chat",
@@ -50,6 +51,9 @@ export default {
   },
   computed: {
     ...mapState(["loading"])
-  }
+  }, 
+  beforeDestroy() {
+   chatkit.leaveRoom(); 
+  },
 };
 </script>

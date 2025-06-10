@@ -35,6 +35,9 @@ export default {
       });
       await chatkit.subscribeToRoom(activeRoom.id, activeRoom.type)
 
+
+      commit("setSending", false);
+
       return true;
     } catch (error) {
       handleError(commit, error);
@@ -50,5 +53,23 @@ export default {
     } catch (error) {
       handleError(commit, error);
     }
+  },
+
+  async sendMessage({ commit }, message) {
+    try {
+      commit("setError", '');
+      commit("setSending", true);
+      const messageId = await chatkit.sendMessage(message);
+      commit("setSending", false);
+      return messageId;
+    } catch (error) {
+      handleError(commit, error);
+    }
+  },
+
+  async logout({ commit }) {
+    commit('reset');
+    chatkit.disconnectUser();
+    window.localStorage.clear();
   }
 }

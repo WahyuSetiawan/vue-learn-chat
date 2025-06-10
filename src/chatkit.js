@@ -1,6 +1,7 @@
-import { localMessageToNewMessagePayload, StreamChat } from 'stream-chat';
+import { StreamChat } from 'stream-chat';
 import moment from 'moment';
 import store from './store';
+import { convertCompilerOptionsFromJson } from 'typescript';
 
 const KEY_STREAM = import.meta.env.VITE_KEY_STREAM;
 
@@ -84,7 +85,46 @@ async function subscribeToRoom(roomId, roomType, userId = null) {
   return activeChannel;
 }
 
+async function sendMessage(text) {
+  if (!activeChannel || !text.trim()) return;
+
+  await activeChannel.sendMessage({
+    text: text.trim(),
+  });
+}
+
+async function startTyping() {
+  if (!activeChannel) return;
+
+  await activeChannel.keystroke();
+}
+
+async function stopTyping() {
+  if (!activeChannel) return;
+
+  await activeChannel.stopTyping();
+}
+
+async function leaveRoom() {
+  if (!activeChannel) return;
+
+  activeChannel.off();
+  await activeChannel.stopWathing();
+
+  activeChannel = null;
+  store.commit('clearChatRoom');
+}
+
+async function disconnectUser() {
+  await client.disconnectUser();
+}
+
 export default {
   connectUser,
-  subscribeToRoom
+  subscribeToRoom,
+  sendMessage,
+  startTyping,
+  stopTyping,
+  leaveRoom,
+  disconnectUser,
 }

@@ -18,6 +18,10 @@
       </div>
     </div>
   </div>
+
+  <div class="user-typing">
+    <small class="text-muted" v-if="userTyping">@{{ userTyping }} is typing....</small>
+  </div>
 </template>
 
 <script>
@@ -26,7 +30,7 @@ import { mapState } from "vuex";
 export default {
   name: "message-list",
   computed: {
-    ...mapState(["messages"])
+    ...mapState(["messages", "userTyping"])
   }
 };
 </script>
