@@ -1,5 +1,5 @@
 <template>
-  <BNavbar id="chat-navbar" toggleable="md" type="dark" variant="info">
+  <BNavbar id="chat-navbar" toggleable="md" type="dark" variant="success">
     <BNavbarBrand href="#">Vue Chat</BNavbarBrand>
 
     <BNavbarBrand></BNavbarBrand>
@@ -23,6 +23,7 @@ export default {
     ...mapActions(['logout']),
     async onLogout() {
       this.logout();
+      this.$router.push('/');
     },
   },
 };
