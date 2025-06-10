@@ -3,27 +3,15 @@
     <h5 class="text-center">Chat Login</h5>
     <hr />
     <BForm @submit.prevent="onSubmit">
-      <BAlert variant="danger" :show="hasError">{{error}}</BAlert>
+      <BAlert variant="danger" :show="hasError">{{ error }}</BAlert>
 
       <BFormGroup id="userInputGroup" label="User Name" label-for="userInput">
-        <BFormInput
-          id="userInput"
-          type="text"
-          placeholder="Enter User Name"
-          v-model="userId"
-          autocomplete="off"
-          :disabled="loading"
-          required
-        ></BFormInput>
+        <BFormInput id="userInput" type="text" placeholder="Enter User Name" v-model="userId" autocomplete="off"
+          :disabled="loading" required></BFormInput>
       </BFormGroup>
 
-      <BButton
-        type="submit"
-        variant="primary"
-        class="ld-ext-right"
-        v-bind:class="{ running: loading}"
-        :disabled="isValid"
-      >
+      <BButton type="submit" variant="primary" class="ld-ext-right" v-bind:class="{ running: loading }"
+        :disabled="isValid">
         Login
         <div class="ld ld-ring ld-spin"></div>
       </BButton>
@@ -42,21 +30,21 @@ export default {
     };
   },
   computed: {
-    isValid: function() {
+    isValid: function () {
       const result = this.userId.length < 3;
       return result ? result : this.loading;
     },
     ...mapState(["loading", "error"]),
     ...mapGetters(["hasError"])
   },
-   methods: {
+  methods: {
     ...mapActions([
       'login'
     ]),
     async onSubmit() {
       const result = await this.login(this.userId);
       console.log(result);
-      if(result) {
+      if (result) {
         this.$router.push('chat');
       }
     }

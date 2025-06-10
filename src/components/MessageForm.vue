@@ -2,19 +2,12 @@
   <div class="message-form ld-over">
     <small class="text-muted">@{{ user.username }}</small>
 
-    <BForm @submit.prevent="onSubmit" class="ld-over" v-bind:class="{ running: sending}">
+    <BForm @submit.prevent="onSubmit" class="ld-over" v-bind:class="{ running: sending }">
       <div class="ld ld-ring ld-spin"></div>
       <BAlert variant="danger" :show="hasError">{{ error }}</BAlert>
       <BFormGroup>
-        <BFormInput
-          id="message-input"
-          type="text"
-          v-model="message"
-          @input="isTyping"
-          placeholder="Enter Message"
-          autocomplete="off"
-          required
-        />
+        <BFormInput id="message-input" type="text" v-model="message" @input="isTyping" placeholder="Enter Message"
+          autocomplete="off" required />
       </BFormGroup>
 
       <div class="clearfix">
@@ -32,7 +25,7 @@ export default {
   name: "message-form",
   data() {
     return {
-      message: "", 
+      message: "",
       typingTimeout: null,
     };
   },
@@ -42,23 +35,23 @@ export default {
   },
   methods: {
     ...mapActions([
-    'sendMessage', 
+      'sendMessage',
     ]),
-    async onSubmit(){
+    async onSubmit() {
       const result = await this.sendMessage(this.message);
-      if(result){
+      if (result) {
         this.messagee = '';
       }
     },
-    async isTyping(){
+    async isTyping() {
       await chatkit.startTyping();
 
-      if(this.typingTimeout){
+      if (this.typingTimeout) {
         clearTimeout(this.typingTimeout);
       }
 
       this.typingTimeout = setTimeout(async () => {
-       await chatkit.stopTyping();
+        await chatkit.stopTyping();
       }, 2000);
     }
   },

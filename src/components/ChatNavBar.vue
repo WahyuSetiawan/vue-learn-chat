@@ -5,7 +5,7 @@
     <BNavbarBrand></BNavbarBrand>
 
     <BNavbarNav class="ml-auto">
-      <BNavText>{{user.name}}</BNavText>
+      <BNavText>{{ user.name }}</BNavText>
       <BNavItem href="#" @click="onLogout" active>Logout</BNavItem>
     </BNavbarNav>
   </BNavbar>
@@ -18,13 +18,13 @@ export default {
   name: "ChatNavBar",
   computed: {
     ...mapState(["user"])
-  }, 
+  },
   methods: {
     ...mapActions(['logout']),
-    async onLogout(){
+    async onLogout() {
       this.logout();
     },
-  },  
+  },
 };
 </script>
 

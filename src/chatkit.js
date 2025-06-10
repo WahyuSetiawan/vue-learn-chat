@@ -1,7 +1,6 @@
 import { StreamChat } from 'stream-chat';
 import moment from 'moment';
 import store from './store';
-import { convertCompilerOptionsFromJson } from 'typescript';
 
 const KEY_STREAM = import.meta.env.VITE_KEY_STREAM;
 
@@ -63,14 +62,13 @@ async function subscribeToRoom(roomId, roomType, userId = null) {
 
   await activeChannel.watch();
 
-  console.log(activeChannel.state.members);
-
   const state = await activeChannel.query({
     message: { limit: 20 }
   });
 
   if (state.messages) {
     state.messages.forEach(message => {
+      console.log(message);
       store.commit('addMessage', {
         name: message.user?.name || message.user?.id || 'Unknown',
         username: message.user?.id || 'Unknown',
@@ -94,13 +92,13 @@ function setupChannelEventListeners() {
     const message = event.message;
 
     // if (message.user?.id != client.userID) {
-      store.commit('addMessage', {
-        name: message.user?.name || message.user?.id || 'Unknown',
-        username: message.user?.id || 'Unknown',
-        text: message.text || '',
-        date: moment(message.created_at).format("h:mm:ss"),
-        messageId: message.id,
-      });
+    store.commit('addMessage', {
+      name: message.user?.name || message.user?.id || 'Unknown',
+      username: message.user?.id || 'Unknown',
+      text: message.text || '',
+      date: moment(message.created_at).format("h:mm:ss"),
+      messageId: message.id,
+    });
     // }
   });
 
@@ -109,6 +107,11 @@ function setupChannelEventListeners() {
   });
 
   activeChannel.on("member.removed", () => {
+    setMembers();
+  });
+
+  activeChannel.on("user.presence.changed", (event) => {
+    console.log(`User ${event.user.name || event.user.id} is now ${event.user.online ? 'online' : 'offline'}`);
     setMembers();
   });
 

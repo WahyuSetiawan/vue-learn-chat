@@ -1,7 +1,7 @@
 <template>
   <div class="chat-dashboard">
     <ChatNavBar />
-    <BContainer fluid class="ld-over" v-bind:class="{class: loading}">
+    <BContainer fluid class="ld-over" v-bind:class="{ class: loading }">
       <div class="ld ld-ring ld-spin"></div>
 
       <BRow>
@@ -51,9 +51,9 @@ export default {
   },
   computed: {
     ...mapState(["loading"])
-  }, 
+  },
   beforeDestroy() {
-   chatkit.leaveRoom(); 
+    chatkit.leaveRoom();
   },
 };
 </script>

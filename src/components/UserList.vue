@@ -6,7 +6,7 @@
 
     <BListGroup>
       <BListGroupItem v-for="user in users" :key="user.username">
-        {{user.name}}
+        {{ user.name }}
         <BBadge v-if="user.online" :variant="statusColor(user.online)" pill>{{ user.online }}</BBadge>
       </BListGroupItem>
     </BListGroup>
