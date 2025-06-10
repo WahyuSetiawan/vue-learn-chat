@@ -25,8 +25,6 @@ export default {
       }))
       commit('setRooms', rooms);
 
-      console.log(rooms);
-
       const activeRoom = state.activeRoom || rooms[0];
       commit('setActiveRoom', {
         id: activeRoom.id,
@@ -34,7 +32,6 @@ export default {
         type: activeRoom.type ?? "messaging",
       });
       await chatkit.subscribeToRoom(activeRoom.id, activeRoom.type)
-
 
       commit("setSending", false);
 
