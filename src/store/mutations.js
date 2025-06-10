@@ -27,6 +27,9 @@ export default {
   setMessage(state, messages) {
     state.messages.push(messages);
   },
+  addMessage(state, message) {
+    state.messages.push(message);
+  },
   setSending(state, status) {
     state.sending = status;
   },

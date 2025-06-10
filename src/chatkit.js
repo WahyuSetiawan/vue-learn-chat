@@ -69,8 +69,8 @@ async function subscribeToRoom(roomId, roomType, userId = null) {
     message: { limit: 20 }
   });
 
-  if (state.message) {
-    state.message.forEach(message => {
+  if (state.messages) {
+    state.messages.forEach(message => {
       store.commit('addMessage', {
         name: message.user?.name || message.user?.id || 'Unknown',
         username: message.user?.id || 'Unknown',
@@ -81,8 +81,48 @@ async function subscribeToRoom(roomId, roomType, userId = null) {
     });
   }
 
+  setupChannelEventListeners();
+
   await setMembers();
   return activeChannel;
+}
+
+function setupChannelEventListeners() {
+  if (!activeChannel) return;
+
+  activeChannel.on("message.new", (event) => {
+    const message = event.message;
+
+    // if (message.user?.id != client.userID) {
+      store.commit('addMessage', {
+        name: message.user?.name || message.user?.id || 'Unknown',
+        username: message.user?.id || 'Unknown',
+        text: message.text || '',
+        date: moment(message.created_at).format("h:mm:ss"),
+        messageId: message.id,
+      });
+    // }
+  });
+
+  activeChannel.on("member.added", () => {
+    setMembers();
+  });
+
+  activeChannel.on("member.removed", () => {
+    setMembers();
+  });
+
+  activeChannel.on("typing.start", (event) => {
+    if (event.user?.id !== client.userID) {
+      store.commit("setUserTyping", event.user?.id);
+    }
+  })
+
+  activeChannel.on("typing.stop", (event) => {
+    if (event.user?.id !== client.userID) {
+      store.commit("setUserTyping", null);
+    }
+  })
 }
 
 async function sendMessage(text) {
